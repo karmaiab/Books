@@ -62,8 +62,17 @@ authors.forEach(element => {
     // shortDescription:short_description, longDescription:long_description, status:item['status']
     // })
 // }
-async function readBooks(data){
-    for(item of data){
+async function readBooks(books){
+    for(item of books){
+        // pdate = item["publishedDate"] != undefined ? item["publishedDate"]["$date"] : ''
+        // sDesc = item["shortDescription"] != undefined ? item["shortDescription"] : ''
+        // lDesc = item["longDescription"] != undefined ? item["longDescription"] : ''
+        // book = Book.create({
+        //     title: item["title"], isbn: item["isbn"],
+        //     pageCount: item['pageCount'], thumbnailUrl: item["thumbnailUrl"],
+        //     status: item["status"], publishedDate: pdate,
+        //     shortDescription: sDesc, longDescription: lDesc
+        // })
         if(item['publishedDate']===undefined){
             published_date="NULL"
         }else {
@@ -82,18 +91,19 @@ async function readBooks(data){
         Book.create({title:item['title'], isbn:item['isbn'], pageCount:item['pageCount'], publishedDate:published_date, thumbnailUrl:item['thumbnailUrl'],
         shortDescription:short_description, longDescription:long_description, status:item['status']
         })
-        BookID = Book.id
+        BookId = Book.id
         categories = item['categories']
         for (let i = 0; i < categories.length; i++) {
             const title = categories[i].charAt(0).toUpperCase() + categories[i].slice(1)
-            const category = await Category.findOne({
+            const category = Category.findOne({
                 where: { title:title },
                 attributes:['id'],
                 raw: true
             })
             if (category != null) {
-                await BookCategory.create({ BookId: Book.id, CategoryId:category.id})
+                BookCategory.create({ BookId: Book.id, CategoryId:Category.id})
             }
         }
     }
 }
+readBooks(books);

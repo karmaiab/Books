@@ -4,10 +4,10 @@ let Book = require('./models/book')
 let BookCategory = require('./models/book_categories')
 let BookAuthor = require('./models/book_author')
 
-//Category.sync({alter: true})
+//Category.sync({force: true})
 //Author.sync({force: true})
-//Book.sync({alter: true})
-//BookCategory.sync({force: true})
+Book.sync({force: true})
+BookCategory.sync({force: true})
 //BookAuthor.sync({force: true})
 
 // const express = require("express")

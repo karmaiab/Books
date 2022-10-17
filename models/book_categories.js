@@ -4,17 +4,19 @@ const db = require ('../config_db')
 const { Sequelize } = require('sequelize')
 
 const BookCategory = db.define('BookCategory', {
-  CategoryId: {
+  BookId: {
     type: Sequelize.INTEGER,
+    // allowNull: false,
     references: {
-      model: Category,
+      model: Book,
       key: 'id'
     }
   },
-  BookId: {
+  CategoryId: {
     type: Sequelize.INTEGER,
+    // allowNull: false,
     references: {
-      model: Book,
+      model: Category,
       key: 'id'
     }
   }
